@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import random
 
 
 def duuniReq(work, area=""):
@@ -28,7 +29,8 @@ def duuniReq(work, area=""):
                 "title": job.select(".job-box__title")[0].get_text(),
                 "location": " ".join(job.select(".job-box__job-location")[0].get_text().split()),
                 "link": openingURL + job.find_all('a', href=True)[0]["href"],
-                "posted": job.select(".job-box__job-posted")[0].get_text()
+                "desc": job.select(".job-box__job-posted")[0].get_text(),
+                "id": random.random() * 10000
             }
             foundedOpenings.append(jobDict)
     return foundedOpenings

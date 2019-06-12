@@ -27,10 +27,10 @@ def getJobs(param, param2):
     location = param2.lower()
     if location == "empty":
         location = ""
-    jobs = {
-        "duuni": duuni.duuniReq(job,location),
-        "oikotie": oikotie.oikotieReq(job,location)
-    }
+    jobs = [
+         duuni.duuniReq(job,location),
+         oikotie.oikotieReq(job,location)
+    ]
     return jsonify(jobs)
 
 if __name__ == '__main__':

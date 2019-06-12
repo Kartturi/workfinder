@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 
 import sys
 import requests
+import random
 
 
 oikotieAreas = {
@@ -75,6 +76,7 @@ def oikotieReq(work, area="Kaikki"):
         location = job.select(".locations")[0].get_text()
         jobDict["location"] = " ".join(location.split())
 
+        jobDict["id"] = random.random() * 10000
         joblistList.append(jobDict)
 
     return joblistList
