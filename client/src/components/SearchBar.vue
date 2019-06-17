@@ -1,7 +1,7 @@
 <template>
   <div>
     <form>
-      <input v-model="form.job" placeholder="Työ" type="text">
+      <input v-model="form.job" placeholder="Työ" type="text" value="siivooja">
       <input v-model="form.location" placeholder="Sijainti">
       <button v-on:click="getValues">Searchs</button>
     </form>
@@ -16,8 +16,8 @@ export default {
   data() {
     return {
       form: {
-        job: "",
-        location: ""
+        job: "siivooja ",
+        location: "vaasa"
       },
       error: null
     };
