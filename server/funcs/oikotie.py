@@ -79,6 +79,8 @@ def oikotieReq(work, area="Kaikki"):
         jobDict["id"] = random.random() * 10000
         joblistList.append(jobDict)
 
+        jobDict["host"] = "oikotie"
+
     return joblistList
 
 
