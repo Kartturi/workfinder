@@ -27,8 +27,8 @@ export default {
   width: 60%;
 }
 .jobs-ul li {
-  width: 70%;
-  border: 1px solid green;
+  width: 90%;
+  border: 1px solid purple;
   border-radius: 10px;
   margin-bottom: 10px;
 }

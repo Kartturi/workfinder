@@ -55,7 +55,7 @@ export default {
   justify-content: center;
 }
 .joblist-container-own ul {
-  width: 100%;
+  width: 70%;
 }
 .joblist-container-own li {
   margin: 0 auto;

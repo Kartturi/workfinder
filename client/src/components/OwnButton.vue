@@ -1,5 +1,5 @@
 <template>
-  <button @click="changePage" class="own-button">{{showOwnList ? "Search" : "My list"}}</button>
+  <button @click="changePage" class="own-button">{{showOwnList ? "Etsi" : "Oma lista"}}</button>
 </template>
 
 
@@ -25,5 +25,12 @@ export default {
 .own-button {
   position: absolute;
   right: 50px;
+  font-size: 24px;
+  background: white;
+  border: 1px solid purple;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
 }
 </style>

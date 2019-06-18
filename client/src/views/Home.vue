@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <back-to-top visibleoffset="450" class="scroll-to-top">
+      <button type="button" class="btn-to-top">
+        <font-awesome-icon icon="arrow-up"/>
+      </button>
+    </back-to-top>
     <ownbutton v-on:change-page="changePage"></ownbutton>
     <div v-if="!showOwnlist">
       <h1>Workfinder</h1>
@@ -128,5 +133,17 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.btn-to-top {
+  font-size: 30px;
+  background: purple;
+  color: white;
+  border-radius: 50%;
+  padding: 20px;
+  outline: none;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
 }
 </style>

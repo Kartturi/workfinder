@@ -45,11 +45,12 @@ export default {
 
   <style>
 .list-sorting {
-  width: 20%;
-  border: 1px solid green;
+  
+  
 }
 
 .list-sorting-item {
+  text-align: left;
   font-size: 24px;
 }
 </style>
