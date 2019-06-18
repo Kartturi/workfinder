@@ -1,10 +1,11 @@
 <template>
   <div class="home">
     <h1>Workfinder</h1>
-    <h3>Find your dream job</h3>
-    <h3>Ownlist</h3>
+
+    <h3>Sinun listasi</h3>
+
     <div class="joblist-container-own">
-      <joblist v-bind:jobs="jobs"/>
+      <joblist v-bind="{jobs, ownlist:showOwnList, deleteJob}"/>
     </div>
   </div>
 </template>
@@ -23,16 +24,20 @@ export default {
       backUpJobs: null,
       jobs: null,
       test: "",
-      errors: []
+      errors: [],
+      showOwnList: true
     };
   },
   components: {
     joblist: JobList,
     sorting: Sorting
   },
-  methods: {},
+  methods: {
+    deleteJob(joblist) {
+      this.jobs = joblist;
+    }
+  },
   created() {
-    console.log("mounted");
     let jobsArr = JSON.parse(localStorage.getItem("jobs"));
     if (!jobsArr) return;
 

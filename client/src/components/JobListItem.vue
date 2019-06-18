@@ -14,13 +14,21 @@
       </a>
     </div>
     <div class="joblist-item joblist-item-own">
-      <p>
+      <p v-if="!ownlist">
         <font-awesome-icon
           v-bind:class="{active: clicked}"
-          v-on:click="handleClick"
+          v-on:click="handlePlusClick"
           icon="plus"
           class="ownlist-btn"
         />
+      </p>
+      <p v-if="ownlist">
+        <font-awesome-icon
+          v-bind:class="{active_minus: clickedMinus}"
+          v-on:click="handleMinusClick"
+          icon="minus"
+          class="ownlist-btn"
+        ></font-awesome-icon>
       </p>
     </div>
   </div>
@@ -31,12 +39,21 @@
 export default {
   data() {
     return {
-      clicked: false
+      clicked: false,
+      clickedMinus: false
     };
   },
-  props: ["job"],
+  props: ["job", "ownlist", "deleteJob"],
   methods: {
-    handleClick(e) {
+    handleMinusClick(e) {
+      this.clickedMinus = true;
+      let storageJobs = JSON.parse(localStorage.getItem("jobs"));
+      let newStorageArr = storageJobs.filter(job => job.id !== this.job.id);
+      this.deleteJob(newStorageArr);
+
+      return localStorage.setItem("jobs", JSON.stringify(newStorageArr));
+    },
+    handlePlusClick(e) {
       if (this.clicked) return;
       this.clicked = true;
 
@@ -51,13 +68,17 @@ export default {
         return localStorage.setItem("jobs", JSON.stringify([this.job]));
       }
     }
-  }
+  },
+  created() {}
 };
 </script>
 
 <style>
 .active {
   color: green;
+}
+.active_minus {
+  color: red;
 }
 .joblist-items {
   display: flex;

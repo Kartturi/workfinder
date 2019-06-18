@@ -3,10 +3,14 @@
     <ownbutton v-on:change-page="changePage"></ownbutton>
     <div v-if="!showOwnlist">
       <h1>Workfinder</h1>
-      <h3>Find your dream job</h3>
+      <h3>Löydä unelmien työsi</h3>
+
       <searchBar @clicked="getJobs"></searchBar>
+      <loadingspinner v-if="isLoading"></loadingspinner>
+      <p v-if="jobs">Duunitori:{{resLength.duuni}} Oikotie:{{resLength.oikotie}}</p>
+
       <div class="joblist-container">
-        <joblist v-bind:jobs="jobs"/>
+        <joblist v-bind:jobs="jobs" v-bind:ownlist="showOwnlist"/>
         <sorting v-if="jobs" v-on:sorting-event="sortList"></sorting>
       </div>
     </div>
@@ -24,6 +28,7 @@ import Sorting from "../components/Sorting";
 import shuffleArray from "../utils/shuffleArr";
 import OwnButton from "../components/OwnButton";
 import OwnList from "../components/OwnList";
+import loadingSpinner from "../components/loadingSpinner";
 // @ is an alias to /src
 
 export default {
@@ -34,7 +39,9 @@ export default {
       jobs: null,
       test: "",
       errors: [],
-      showOwnlist: false
+      showOwnlist: false,
+      resLength: {},
+      isLoading: false
     };
   },
   components: {
@@ -42,14 +49,16 @@ export default {
     searchBar: SearchBar,
     joblist: JobList,
     ownbutton: OwnButton,
-    ownlist: OwnList
+    ownlist: OwnList,
+    loadingspinner: loadingSpinner
   },
   methods: {
     changePage(info) {
-      console.log();
       this.showOwnlist = info;
     },
     getJobs(params) {
+      this.isLoading = true;
+      let that = this;
       const jobReqUrl = `http://localhost:5000/job/${params.job}/${
         !params.location ? "empty" : params.location
       }`;
@@ -57,36 +66,38 @@ export default {
         .get(jobReqUrl)
         .then(response => {
           //filter empty arrays out
+          this.isLoading = false;
           let filtered = response.data.filter(arr => arr);
 
           let jobArr = filtered[0];
           if (filtered[1]) {
             let mergedArr = jobArr.concat(filtered[1]);
-            console.log(mergedArr);
 
             this.backUpJobs = mergedArr;
-
+            this.resLength["duuni"] = mergedArr.filter(
+              job => job.host === "duuni"
+            ).length;
+            this.resLength["oikotie"] = mergedArr.filter(
+              job => job.host === "oikotie"
+            ).length;
             let newArr = mergedArr.map(item => item);
             shuffleArray(newArr);
             return (this.jobs = newArr);
           }
-          this.backUpJobs = jobArr;
-          return (this.jobs = jobArr);
 
-          console.log(this.jobs);
+          this.backUpJobs = jobArr;
+
+          return (this.jobs = jobArr);
         })
         .catch(err => console.log(err));
     },
     sortList(info) {
-      console.log(info.duuni, info.oikotie, info.random);
       if (info.duuni && info.oikotie && info.random) {
-        console.log("all  happened", this.backUpJobs, "what");
         let sortedJobList = this.backUpJobs.map(item => item);
         shuffleArray(sortedJobList);
         return (this.jobs = sortedJobList);
       }
       if (!info.duuni && !info.oikotie && !info.random) {
-        console.log("all nothing happened");
         return (this.jobs = this.backUpJobs.map(item => item));
       }
       if (!info.duuni && !info.oikotie && info.random) {

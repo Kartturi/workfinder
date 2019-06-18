@@ -36,11 +36,7 @@ export default {
   methods: {
     sortingClick(e) {
       this.sorting[e.target.dataset.box] = !this.sorting[e.target.dataset.box];
-      console.log(
-        this.sorting.duuni,
-        this.sorting.oikotie,
-        this.sorting.random
-      );
+
       this.$emit("sorting-event", this.sorting);
     }
   }

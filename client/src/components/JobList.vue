@@ -3,7 +3,7 @@
     <li v-for="(job,i) in jobs" v-bind:key="`${i}-${job.id}`">
       <!-- <jobListItem v-bind:job="job"></jobListItem> -->
 
-      <joblistitem v-bind:job="job"></joblistitem>
+      <joblistitem v-bind="{job, ownlist, deleteJob}"></joblistitem>
     </li>
   </ul>
 </template>
@@ -12,10 +12,11 @@
 <script>
 import JobListItem from "./JobListItem";
 export default {
-  props: ["jobs"],
+  props: ["jobs", "ownlist", "deleteJob"],
   components: {
     joblistitem: JobListItem
-  }
+  },
+  created() {}
 };
 </script>
 
