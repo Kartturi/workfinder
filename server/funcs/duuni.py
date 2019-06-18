@@ -26,6 +26,7 @@ def duuniReq(work, area=""):
         title = job.select(".job-box__title")
         if(len(title) == 1):
             jobDict = {
+                "host": "duuni",
                 "title": job.select(".job-box__title")[0].get_text(),
                 "location": " ".join(job.select(".job-box__job-location")[0].get_text().split()),
                 "link": openingURL + job.find_all('a', href=True)[0]["href"],
