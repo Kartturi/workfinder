@@ -29,6 +29,7 @@ oikotieAreas = {
 
 }
 
+
 def oikotieReq(work, area="Kaikki"):
 
     # oikotie doesnt has city search parameter so we change city to its respective state area
@@ -105,7 +106,7 @@ def findStateOfCity(cityParam):
         if item.select("td a")[0].get_text().lower() == cityParam.lower():
             result = item.select("td a")[1].get_text()
 
-    
     return result
 
 
+print(oikotieReq("ohjelmointi"))

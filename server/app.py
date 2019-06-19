@@ -3,6 +3,7 @@ from flask_cors import CORS
 from funcs import testi
 from funcs import duuni
 from funcs import oikotie
+from funcs import monster
 
 # configuration
 DEBUG = True
@@ -27,11 +28,11 @@ def getJobs(param, param2):
     location = param2.lower()
     if location == "empty":
         location = ""
-    jobs = [
-         duuni.duuniReq(job,location),
-         oikotie.oikotieReq(job,location)
-    ]
+    jobs = duuni.duuniReq(job, location) + oikotie.oikotieReq(job,
+                                                              location) + monster.monsterReq(job, location)
+
     return jsonify(jobs)
+
 
 if __name__ == '__main__':
     app.run()

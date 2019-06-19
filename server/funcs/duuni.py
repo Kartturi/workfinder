@@ -30,9 +30,13 @@ def duuniReq(work, area=""):
                 "title": job.select(".job-box__title")[0].get_text(),
                 "location": " ".join(job.select(".job-box__job-location")[0].get_text().split()),
                 "link": openingURL + job.find_all('a', href=True)[0]["href"],
-                "desc": job.select(".job-box__job-posted")[0].get_text(),
+
+                "desc": [item["data-company"] for item in job.find_all() if "data-company" in item.attrs][0] + " | " + job.select(".job-box__job-posted")[0].get_text(),
                 "id": random.random() * 10000
             }
             foundedOpenings.append(jobDict)
+
     return foundedOpenings
 
+
+print(duuniReq("koodari", "akaa"))

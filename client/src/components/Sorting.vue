@@ -10,6 +10,10 @@
       <span>Oikotie</span>
     </div>
     <div class="list-sorting-item">
+      <input v-model="sorting.monsteri" @click="sortingClick" data-box="monsteri" type="checkbox">
+      <span>Monsteri</span>
+    </div>
+    <div class="list-sorting-item">
       <input v-model="sorting.random" @click="sortingClick" data-box="random" type="checkbox">
       <span>Random</span>
     </div>
@@ -29,6 +33,7 @@ export default {
       sorting: {
         duuni: false,
         oikotie: false,
+        monsteri: false,
         random: true
       }
     };
@@ -45,8 +50,6 @@ export default {
 
   <style>
 .list-sorting {
-  
-  
 }
 
 .list-sorting-item {

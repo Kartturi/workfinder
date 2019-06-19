@@ -12,7 +12,9 @@
 
       <searchBar @clicked="getJobs"></searchBar>
       <loadingspinner v-if="isLoading"></loadingspinner>
-      <p v-if="jobs">Duunitori:{{resLength.duuni}} Oikotie:{{resLength.oikotie}}</p>
+      <p
+        v-if="jobs"
+      >Duunitori:{{resLength.duuni}} Oikotie:{{resLength.oikotie}} Monsteri:{{resLength.monster}}</p>
 
       <div class="joblist-container">
         <joblist v-bind:jobs="jobs" v-bind:ownlist="showOwnlist"/>
@@ -72,40 +74,37 @@ export default {
         .then(response => {
           //filter empty arrays out
           this.isLoading = false;
-          let filtered = response.data.filter(arr => arr);
+          let backupData = response.data;
 
-          let jobArr = filtered[0];
-          if (filtered[1]) {
-            let mergedArr = jobArr.concat(filtered[1]);
+          this.resLength["duuni"] = backupData.filter(
+            job => job.host === "duuni"
+          ).length;
 
-            this.backUpJobs = mergedArr;
-            this.resLength["duuni"] = mergedArr.filter(
-              job => job.host === "duuni"
-            ).length;
-            this.resLength["oikotie"] = mergedArr.filter(
-              job => job.host === "oikotie"
-            ).length;
-            let newArr = mergedArr.map(item => item);
-            shuffleArray(newArr);
-            return (this.jobs = newArr);
-          }
+          this.resLength["oikotie"] = backupData.filter(
+            job => job.host === "oikotie"
+          ).length;
 
-          this.backUpJobs = jobArr;
+          this.resLength["monster"] = backupData.filter(
+            job => job.host === "monsteri"
+          ).length;
 
-          return (this.jobs = jobArr);
+          let newArr = backupData.map(item => item);
+          shuffleArray(newArr);
+          this.backUpJobs = backupData;
+          return (this.jobs = newArr);
         })
         .catch(err => console.log(err));
     },
     sortList(info) {
-      if (info.duuni && info.oikotie && info.random) {
+      if (info.duuni && info.oikotie && info.monster && info.random) {
         let sortedJobList = this.backUpJobs.map(item => item);
         shuffleArray(sortedJobList);
         return (this.jobs = sortedJobList);
       }
-      if (!info.duuni && !info.oikotie && !info.random) {
+      if (!info.duuni && !info.oikotie && !info.monster && !info.random) {
         return (this.jobs = this.backUpJobs.map(item => item));
       }
-      if (!info.duuni && !info.oikotie && info.random) {
+      if (!info.duuni && !info.oikotie && !info.monster && info.random) {
         let sortedJobList = this.backUpJobs.map(item => item);
         shuffleArray(sortedJobList);
         return (this.jobs = sortedJobList);
@@ -118,6 +117,12 @@ export default {
         let sortedJobList = this.backUpJobs;
         return (this.jobs = sortedJobList.filter(
           job => job.host === "oikotie"
+        ));
+      }
+      if (info.monsteri) {
+        let sortedJobList = this.backUpJobs;
+        return (this.jobs = sortedJobList.filter(
+          job => job.host === "monsteri"
         ));
       }
       let sortedJobList = this.jobs.filter(job => job.host === "oikotie");
