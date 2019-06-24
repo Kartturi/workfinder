@@ -49,9 +49,6 @@ export default {
 </script>
 
   <style>
-.list-sorting {
-}
-
 .list-sorting-item {
   text-align: left;
   font-size: 24px;

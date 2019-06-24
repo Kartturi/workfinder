@@ -96,37 +96,35 @@ export default {
         .catch(err => console.log(err));
     },
     sortList(info) {
-      if (info.duuni && info.oikotie && info.monster && info.random) {
+      console.log("click");
+      if (info.duuni && info.oikotie && info.monsteri && info.random) {
         let sortedJobList = this.backUpJobs.map(item => item);
         shuffleArray(sortedJobList);
         return (this.jobs = sortedJobList);
       }
-      if (!info.duuni && !info.oikotie && !info.monster && !info.random) {
+      if (!info.duuni && !info.oikotie && !info.monsteri && !info.random) {
         return (this.jobs = this.backUpJobs.map(item => item));
       }
-      if (!info.duuni && !info.oikotie && !info.monster && info.random) {
+      if (!info.duuni && !info.oikotie && !info.monsteri && info.random) {
         let sortedJobList = this.backUpJobs.map(item => item);
         shuffleArray(sortedJobList);
         return (this.jobs = sortedJobList);
       }
+      let hosts = [];
       if (info.duuni) {
-        let sortedJobList = this.backUpJobs;
-        return (this.jobs = sortedJobList.filter(job => job.host === "duuni"));
+        hosts.push("duuni");
       }
       if (info.oikotie) {
-        let sortedJobList = this.backUpJobs;
-        return (this.jobs = sortedJobList.filter(
-          job => job.host === "oikotie"
-        ));
+        hosts.push("oikotie");
       }
       if (info.monsteri) {
-        let sortedJobList = this.backUpJobs;
-        return (this.jobs = sortedJobList.filter(
-          job => job.host === "monsteri"
-        ));
+        hosts.push("monsteri");
       }
-      let sortedJobList = this.jobs.filter(job => job.host === "oikotie");
-      this.jobs = sortedJobList;
+      console.log(hosts, "from info");
+      console.log(this.backUpJobs.filter(job => hosts.includes(job.host)));
+      return (this.jobs = this.backUpJobs.filter(job =>
+        hosts.includes(job.host)
+      ));
     }
   }
 };

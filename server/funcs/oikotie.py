@@ -60,28 +60,29 @@ def oikotieReq(work, area="Kaikki"):
     joblist = soup.find_all("li", class_="joblist-item")
 
     joblistList = []
+    try:
+        for job in joblist:
+            # get title, url, description from html and put it to jobdict and to joblist List
+            jobDict = {}
 
-    for job in joblist:
-        # get title, url, description from html and put it to jobdict and to joblist List
-        jobDict = {}
+            link = job.find("a").get("href")
+            jobDict["link"] = link
 
-        link = job.find("a").get("href")
-        jobDict["link"] = link
+            title = job.select(".job-title")[0].get_text()
+            jobDict["title"] = title
 
-        title = job.select(".job-title")[0].get_text()
-        jobDict["title"] = title
+            metadata = job.select(".metadata")[0].get_text()
+            jobDict["desc"] = " ".join(metadata.split())
 
-        metadata = job.select(".metadata")[0].get_text()
-        jobDict["desc"] = " ".join(metadata.split())
+            location = job.select(".locations")[0].get_text()
+            jobDict["location"] = " ".join(location.split())
 
-        location = job.select(".locations")[0].get_text()
-        jobDict["location"] = " ".join(location.split())
+            jobDict["id"] = random.random() * 10000
+            joblistList.append(jobDict)
 
-        jobDict["id"] = random.random() * 10000
-        joblistList.append(jobDict)
-
-        jobDict["host"] = "oikotie"
-
+            jobDict["host"] = "oikotie"
+    except:
+        return joblistList
     return joblistList
 
 

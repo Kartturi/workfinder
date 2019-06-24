@@ -21,21 +21,22 @@ def duuniReq(work, area=""):
     openings = soup.find_all("div", class_="job-box")
 
     foundedOpenings = []
+    try:
+        for job in openings:
+            title = job.select(".job-box__title")
+            if(len(title) == 1):
+                jobDict = {
+                    "host": "duuni",
+                    "title": job.select(".job-box__title")[0].get_text(),
+                    "location": " ".join(job.select(".job-box__job-location")[0].get_text().split()),
+                    "link": openingURL + job.find_all('a', href=True)[0]["href"],
 
-    for job in openings:
-        title = job.select(".job-box__title")
-        if(len(title) == 1):
-            jobDict = {
-                "host": "duuni",
-                "title": job.select(".job-box__title")[0].get_text(),
-                "location": " ".join(job.select(".job-box__job-location")[0].get_text().split()),
-                "link": openingURL + job.find_all('a', href=True)[0]["href"],
-
-                "desc": [item["data-company"] for item in job.find_all() if "data-company" in item.attrs][0] + " | " + job.select(".job-box__job-posted")[0].get_text(),
-                "id": random.random() * 10000
-            }
-            foundedOpenings.append(jobDict)
-
+                    "desc": [item["data-company"] for item in job.find_all() if "data-company" in item.attrs][0] + " | " + job.select(".job-box__job-posted")[0].get_text(),
+                    "id": random.random() * 10000
+                }
+                foundedOpenings.append(jobDict)
+    except:
+        return foundedOpenings
     return foundedOpenings
 
 
