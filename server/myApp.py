@@ -9,7 +9,8 @@ from funcs import monster
 DEBUG = True
 
 # instantiate the app
-application = Flask(__name__)
+application = Flask(__name__, static_folder="../client/dist",
+                    template_folder="../client/dist")
 application.config.from_object(__name__)
 
 # enable CORS
@@ -19,7 +20,7 @@ CORS(application, resources={r'/*': {'origins': '*'}})
 # sanity check route
 @application.route('/', methods=['GET'])
 def home():
-    return testi.testaus()
+    return render_template("index.html")
 
 
 @application.route('/job/<param>/<param2>', methods=['GET'])
