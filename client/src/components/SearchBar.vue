@@ -72,8 +72,8 @@ export default {
   data() {
     return {
       form: {
-        job: "siivooja ",
-        location: "vaasa"
+        job: "",
+        location: ""
       },
       error: null
     };
