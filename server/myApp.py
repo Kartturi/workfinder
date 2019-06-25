@@ -13,7 +13,7 @@ DEBUG = True
 template_dir = "./dist"
 static_dir = "./dist/static"
 print(static_dir)
-application = Flask(__name__, static_folder=static_dir,
+application = Flask(__name__, static_folder="./dist/static",
                     template_folder=template_dir)
 application.config.from_object(__name__)
 

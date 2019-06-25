@@ -36,7 +36,6 @@ import shuffleArray from "../utils/shuffleArr";
 import OwnButton from "../components/OwnButton";
 import OwnList from "../components/OwnList";
 import loadingSpinner from "../components/loadingSpinner";
-import url from "../../connection";
 
 // @ is an alias to /src
 
@@ -68,7 +67,7 @@ export default {
     getJobs(params) {
       this.isLoading = true;
       let that = this;
-      let jobReqUrl = `${url}/job/${params.job}/${
+      let jobReqUrl = `/job/${params.job}/${
         !params.location ? "empty" : params.location
       }`;
 
