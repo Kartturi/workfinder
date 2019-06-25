@@ -46,6 +46,3 @@ def monsterReq(work, area=""):
     except:
         return foundedOpenings
     return foundedOpenings
-
-
-print(monsterReq("siivooja", "turku"))

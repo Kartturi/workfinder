@@ -108,6 +108,3 @@ def findStateOfCity(cityParam):
             result = item.select("td a")[1].get_text()
 
     return result
-
-
-print(oikotieReq("ohjelmointi"))

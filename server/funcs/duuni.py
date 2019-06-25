@@ -38,6 +38,3 @@ def duuniReq(work, area=""):
     except:
         return foundedOpenings
     return foundedOpenings
-
-
-print(duuniReq("koodari", "akaa"))

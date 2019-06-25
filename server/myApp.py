@@ -1,20 +1,24 @@
 from flask import Flask, jsonify, render_template
-from flask_cors import CORS
+""" from flask_cors import CORS """
 from funcs import testi
 from funcs import duuni
 from funcs import oikotie
 from funcs import monster
+import os
 
 # configuration
 DEBUG = True
 
 # instantiate the app
-application = Flask(__name__, static_folder="../client/dist",
-                    template_folder="../client/dist")
+template_dir = "./dist"
+static_dir = "./dist/static"
+print(static_dir)
+application = Flask(__name__, static_folder=static_dir,
+                    template_folder=template_dir)
 application.config.from_object(__name__)
 
 # enable CORS
-CORS(application, resources={r'/*': {'origins': '*'}})
+""" CORS(application, resources={r'/*': {'origins': '*'}}) """
 
 
 # sanity check route
