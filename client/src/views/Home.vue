@@ -36,6 +36,8 @@ import shuffleArray from "../utils/shuffleArr";
 import OwnButton from "../components/OwnButton";
 import OwnList from "../components/OwnList";
 import loadingSpinner from "../components/loadingSpinner";
+import url from "../../connection";
+
 // @ is an alias to /src
 
 export default {
@@ -66,9 +68,10 @@ export default {
     getJobs(params) {
       this.isLoading = true;
       let that = this;
-      const jobReqUrl = `http://localhost:5000/job/${params.job}/${
+      let jobReqUrl = `${url}/job/${params.job}/${
         !params.location ? "empty" : params.location
       }`;
+
       axios
         .get(jobReqUrl)
         .then(response => {
