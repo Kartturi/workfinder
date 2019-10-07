@@ -8,13 +8,13 @@
           type="text"
           value="siivooja"
           class="search-input"
-        >
+        />
         <span v-if="form.job" v-on:click="clearValueJob" class="deleteicon-span">
           <font-awesome-icon icon="times"></font-awesome-icon>
         </span>
       </span>
       <span class="deleteicon">
-        <input v-model="form.location" placeholder="Kaupunki" class="search-input">
+        <input v-model="form.location" placeholder="Kaupunki" class="search-input" />
         <span v-if="form.location" v-on:click="clearLocationJob" class="deleteicon-span">
           <font-awesome-icon icon="times"></font-awesome-icon>
         </span>

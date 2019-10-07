@@ -2,7 +2,7 @@
   <div class="home">
     <back-to-top visibleoffset="450" class="scroll-to-top">
       <button type="button" class="btn-to-top">
-        <font-awesome-icon icon="arrow-up"/>
+        <font-awesome-icon icon="arrow-up" />
       </button>
     </back-to-top>
     <ownbutton v-on:change-page="changePage"></ownbutton>
@@ -17,7 +17,7 @@
       >Duunitori:{{resLength.duuni}} Oikotie:{{resLength.oikotie}} Monsteri:{{resLength.monster}}</p>
 
       <div class="joblist-container">
-        <joblist v-bind:jobs="jobs" v-bind:ownlist="showOwnlist"/>
+        <joblist v-bind:jobs="jobs" v-bind:ownlist="showOwnlist" />
         <sorting v-if="jobs" v-on:sorting-event="sortList"></sorting>
       </div>
     </div>
@@ -77,6 +77,7 @@ export default {
           //filter empty arrays out
           this.isLoading = false;
           let backupData = response.data;
+          console.log(response.data);
 
           this.resLength["duuni"] = backupData.filter(
             job => job.host === "duuni"
